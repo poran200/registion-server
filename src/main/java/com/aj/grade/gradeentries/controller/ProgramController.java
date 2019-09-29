@@ -36,7 +36,7 @@ public class ProgramController {
         }
     }
 
-    @PostMapping(value = "/{programName}")
+   @GetMapping(value = "/{programName}")
     public ResponseEntity<Program> getProgramById(@PathVariable String programName) {
         try {
             return ResponseEntity.ok().body(programService.findById(programName));
