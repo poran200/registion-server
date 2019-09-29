@@ -52,7 +52,7 @@ public class SectionService {
     }
 
     public List<Section> findallbyCourescode(String courseCode) {
-        return scetionRepository.findAllByCourseCode(courseCode);
+        return scetionRepository.findAllByCourseCodeContaining(courseCode);
     }
 
     public void deleteScetionbyid(String sectionId) throws ResourseNotFoundException {
