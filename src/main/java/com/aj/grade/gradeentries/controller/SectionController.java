@@ -34,7 +34,9 @@ public class SectionController {
             return ResponseEntity.status(HttpStatus.CREATED).body(sectionService.creatSection(courseCode, section));
         } catch (ResourseNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        } catch (Exception e) {
+        } catch (ResourceAlreadyExistException e) {
+              return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }catch (Exception e){
             return ResponseEntity.badRequest().build();
         }
 
