@@ -1,5 +1,6 @@
 package com.aj.grade.gradeentries.controller;
 
+import com.aj.grade.gradeentries.exception.ResourceAlreadyExistException;
 import com.aj.grade.gradeentries.exception.ResourseNotFoundException;
 import com.aj.grade.gradeentries.exception.ResourceAlreadyExistException;
 import com.aj.grade.gradeentries.model.Section;

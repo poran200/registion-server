@@ -1,7 +1,7 @@
 package com.aj.grade.gradeentries.services;
 
-import com.aj.grade.gradeentries.exception.ResourseNotFoundException;
 import com.aj.grade.gradeentries.exception.ResourceAlreadyExistException;
+import com.aj.grade.gradeentries.exception.ResourseNotFoundException;
 import com.aj.grade.gradeentries.model.Course;
 import com.aj.grade.gradeentries.model.Section;
 import com.aj.grade.gradeentries.repository.CourseRepository;
@@ -16,11 +16,15 @@ import java.util.Optional;
 @Service
 @Transactional
 public class SectionService {
-    @Autowired
+
     private ScetionRepository scetionRepository;
-    @Autowired
+
     private CourseRepository courseRepository;
 
+    public SectionService(ScetionRepository scetionRepository, CourseRepository courseRepository) {
+        this.scetionRepository = scetionRepository;
+        this.courseRepository = courseRepository;
+    }
 
     public List<Section> findAll() {
         return scetionRepository.findAll();
