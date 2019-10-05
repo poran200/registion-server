@@ -31,23 +31,19 @@ public class SectionService {
     }
 
 
-    public Section creatSection(String courseCode, Section section) throws ResourseNotFoundException, ResourceAlreadyExistException {
+    public Section creatSection(String courseCode, Section section) throws ResourseNotFoundException {
         Course course = courseRepository.getOne(courseCode);
-        String sectionid= courseCode+"."+section.getSection_number()+"."+section.getSemester_id();
-        Optional<Section> optionalSection = scetionRepository.findById(sectionid);
         if (course == null) {
             throw new ResourseNotFoundException(courseCode + "");
-        } else if (optionalSection.isPresent()) {
-              throw new ResourceAlreadyExistException(sectionid +"Already exist !");
-        }else {
-
+        } else   {
             section.setSectionID(course.getCode() + "." + section.getSection_number() + "." + section.getSemester_id());
             course.addSection(section);
             courseRepository.save(course);
             return scetionRepository.save(section);
-
         }
+
     }
+
 
     public Section updateSection(String sectionId, Section section) throws ResourseNotFoundException {
         Optional<Section> optionalSection = scetionRepository.findById(sectionId);

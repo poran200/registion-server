@@ -34,11 +34,7 @@ public class SectionController {
     public ResponseEntity<Section> createSection(@PathVariable String courseCode, @RequestBody Section section) {
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(sectionService.creatSection(courseCode, section));
-        } catch (ResourseNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        } catch (ResourceAlreadyExistException e) {
-              return ResponseEntity.status(HttpStatus.CONFLICT).build();
-        }catch (Exception e){
+        }   catch (Exception e){
             return ResponseEntity.badRequest().build();
         }
 
