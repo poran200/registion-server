@@ -34,7 +34,10 @@ public class SectionController {
     public ResponseEntity<Section> createSection(@PathVariable String courseCode, @RequestBody Section section) {
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(sectionService.creatSection(courseCode, section));
-        }   catch (Exception e){
+        } catch (ResourseNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().build();
         }
 
