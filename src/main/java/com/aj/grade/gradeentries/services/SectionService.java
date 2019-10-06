@@ -6,7 +6,6 @@ import com.aj.grade.gradeentries.model.Course;
 import com.aj.grade.gradeentries.model.Section;
 import com.aj.grade.gradeentries.repository.CourseRepository;
 import com.aj.grade.gradeentries.repository.ScetionRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -33,12 +32,16 @@ public class SectionService {
 
     public Section creatSection(String courseCode, Section section) throws ResourseNotFoundException {
         Course course = courseRepository.getOne(courseCode);
+        String sectionId= courseCode+"."+section.getSection_number()+"."+section.getSemester_id();
+         // Section sectionTest= scetionRepository.getOne(sectionId);
         if (course == null) {
             throw new ResourseNotFoundException(courseCode + "");
-        } else   {
+        }
+         else {
             section.setSectionID(course.getCode() + "." + section.getSection_number() + "." + section.getSemester_id());
             course.addSection(section);
             courseRepository.save(course);
+            System.out.println("ok save");
             return scetionRepository.save(section);
         }
 
