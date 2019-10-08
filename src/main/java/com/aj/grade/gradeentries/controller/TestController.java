@@ -76,7 +76,7 @@ public class TestController {
     public Section addStudent() {
 
 //      Student student = new Student(102,"jalal");
-        StudentInfo studentInfo1 = new StudentInfo(110, "ridoy");
+        StudentInfo studentInfo1 = new StudentInfo("110", "ridoy");
         //  Student student = this.studentRepository.getOne(102L);
         Section section = this.scetionRepository.getOne("ACT102.8.50");
         // section.addStudent(student1);
