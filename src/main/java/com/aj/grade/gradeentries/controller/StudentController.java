@@ -21,7 +21,7 @@ public class StudentController {
     }
 
     @GetMapping(value = "/{studentId}")
-    public ResponseEntity<List<Section>> getSection(@PathVariable long studentId) {
+    public ResponseEntity<List<Section>> getSection(@PathVariable  String studentId) {
         try {
             return ResponseEntity.ok(studentRegService.findById(studentId));
         } catch (ResourseNotFoundException e) {

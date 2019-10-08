@@ -17,7 +17,7 @@ import static javax.persistence.CascadeType.*;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class StudentInfo {
     @Id
-    private long id;
+    private String id;
     private String name;
 
     @ManyToMany(fetch = FetchType.LAZY,
@@ -31,7 +31,7 @@ public class StudentInfo {
 
     private List<Section> sections;
 
-    public StudentInfo(long id, String name) {
+    public StudentInfo(String id, String name) {
         this.id = id;
         this.name = name;
     }

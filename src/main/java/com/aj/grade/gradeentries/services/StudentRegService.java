@@ -37,7 +37,7 @@ public class StudentRegService {
     }
 
 
-    public List<Section> findById(long id) throws ResourseNotFoundException {
+    public List<Section> findById( String id) throws ResourseNotFoundException {
         Optional<StudentInfo> optionalStudent = studentRepository.findById(id);
         if (optionalStudent.isPresent()) {
             return optionalStudent.get().getSections();
