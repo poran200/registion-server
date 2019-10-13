@@ -18,10 +18,13 @@ import java.util.Optional;
 @Transactional
 public class StudentRegService {
 
-    @Autowired
-    private StudentRepository studentRepository;
-    @Autowired
-    private ScetionRepository scetionRepository;
+    private final StudentRepository studentRepository;
+    private final ScetionRepository scetionRepository;
+
+    public StudentRegService(StudentRepository studentRepository, ScetionRepository scetionRepository) {
+        this.studentRepository = studentRepository;
+        this.scetionRepository = scetionRepository;
+    }
 
     public List<StudentInfo> findallStudent() {
         return studentRepository.findAll();
@@ -80,7 +83,7 @@ public class StudentRegService {
         studentInfo = studentRepository.getOne(studentInfo.getId());
         Section scetion = scetionRepository.getOne(scetionId);
         studentInfo.getSections().remove(scetion);
-        return "section droped";
+        return "section dropped";
     }
 
 

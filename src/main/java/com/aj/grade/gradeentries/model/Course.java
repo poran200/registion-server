@@ -34,7 +34,7 @@ public class Course implements Serializable {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "course_id")
-    @JsonIgnoreProperties(value = "sectionList")
+   // @JsonIgnoreProperties(value = "sectionList")
     private List<Section> sectionList;
 
     public Course(String code, String title) {
