@@ -10,22 +10,27 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
+import static javax.persistence.CascadeType.*;
+
 @Entity
 @Setter
 @Getter
 @NoArgsConstructor
 @EqualsAndHashCode(of = {"sectionID"})
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@id", scope = Course.class)
-@Transactional
+//@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "@id", scope = Course.class)
 
 public class Section {
 
     private static final long serialVersionUID = 1L;
-
-    // private Course course;
-    private String courseCode;
-    private String courseTitle;
+    @ManyToOne(fetch = FetchType.LAZY,
+            cascade = {PERSIST, MERGE,
+                    CascadeType.REFRESH, DETACH})
+    @JoinColumn(name = "course_id")
+     @JsonIgnoreProperties("sectionList")
+     private Course course;
+//    private String courseCode;
+//    private String courseTitle;
     private String faculty;
     private int section_number;
     private int capacity;
@@ -41,6 +46,7 @@ public class Section {
             joinColumns = @JoinColumn(name = "section_id"),
             inverseJoinColumns = @JoinColumn(name = "student_id")
     )
+    @JsonIgnoreProperties("sections")
     private List<StudentInfo> studentInfos;
 
 
@@ -62,9 +68,8 @@ public class Section {
 //    }
 
 
-    public Section(String courseCode, String courseTitle, String faculty, int section_number, int capacity, int semester_id, String sectionID) {
-        this.courseCode = courseCode;
-        this.courseTitle = courseTitle;
+    public Section( Course course,String faculty, int section_number, int capacity, int semester_id, String sectionID) {
+        this.course = course;
         this.faculty = faculty;
         this.section_number = section_number;
         this.capacity = capacity;
@@ -72,17 +77,5 @@ public class Section {
         this.sectionID = sectionID;
     }
 
-    @Override
-    public String toString() {
-        return "Section{" +
-                "courseCode='" + courseCode + '\'' +
-                ", courseTitle='" + courseTitle + '\'' +
-                ", faculty='" + faculty + '\'' +
-                ", section_number=" + section_number +
-                ", capacity=" + capacity +
-                ", semester_id=" + semester_id +
-                ", sectionID='" + sectionID + '\'' +
-                ", students=" + studentInfos.stream().map(StudentInfo::getId) +
-                '}';
-    }
+
 }

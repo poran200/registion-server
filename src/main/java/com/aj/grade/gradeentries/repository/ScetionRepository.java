@@ -13,5 +13,8 @@ public interface ScetionRepository extends JpaRepository<Section, String> {
     List<Section> findAllByCourseCodeContaining(String courseCode);
 
     List<Section> findAllByFaculty(String faculty);
+    List<Section>findAllByCourseProgram(String program);
+    List<Section>findAllByCourseCode(String courseCode);
+
 
 }

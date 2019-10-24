@@ -40,13 +40,10 @@ public class StudentRegService {
     }
 
 
-    public List<Section> findById( String id) throws ResourseNotFoundException {
-        Optional<StudentInfo> optionalStudent = studentRepository.findById(id);
-        if (optionalStudent.isPresent()) {
-            return optionalStudent.get().getSections();
-        } else {
-            throw new ResourseNotFoundException(id + "");
-        }
+    public List<Section> findById( String id) {
+//        Optional<StudentInfo> optionalStudent = studentRepository.findById(id);
+//        return optionalStudent.get().getSections();
+        return studentRepository.findById(id).get().getSections();
     }
 
     public StudentInfo registrationStudent(String sectionId, StudentInfo studentInfo) throws ResourseNotFoundException, ScetionFullException, ResourceAlreadyExistException {
@@ -54,7 +51,7 @@ public class StudentRegService {
         Optional<StudentInfo> optionalStudent = studentRepository.findById(studentInfo.getId());
         Section section = this.scetionRepository.getOne(sectionId);
         if (section == null) throw new ResourseNotFoundException(sectionId + "");
-        if (section.getStudentInfos().size() <= section.getCapacity()) {
+        if (section.getStudentInfos().size() < section.getCapacity()) {
             if (!optionalStudent.isPresent()) {
                 StudentInfo studentInfo1 = create(studentInfo);
                 section.addStudent(studentInfo1);
@@ -79,8 +76,8 @@ public class StudentRegService {
 
     }
 
-    public String dropScetion(String scetionId, StudentInfo studentInfo) {
-        studentInfo = studentRepository.getOne(studentInfo.getId());
+    public String dropScetion(String scetionId,  String studentId) {
+     StudentInfo   studentInfo = studentRepository.getOne(studentId);
         Section scetion = scetionRepository.getOne(scetionId);
         studentInfo.getSections().remove(scetion);
         return "section dropped";

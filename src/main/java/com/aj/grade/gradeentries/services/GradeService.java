@@ -22,7 +22,8 @@ public class GradeService {
     public List<Grade> finByStudentId(long studentId) throws ResourseNotFoundException {
         Optional<Grade> optionalGrade = gradeRepository.findById(studentId);
         if (optionalGrade.isPresent()){
-            return gradeRepository.findAllByStudentIdContaining(studentId);
+           // return gradeRepository.findAllByStudentIdContaining(studentId);
+            return null;
         }
         else {
             throw  new ResourseNotFoundException(optionalGrade.get()+"");

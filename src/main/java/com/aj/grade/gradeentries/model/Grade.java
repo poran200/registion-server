@@ -17,8 +17,5 @@ public class Grade {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private   int id;
-    private  long studentId;
-    private  String coursecode;
-    private  double grade;
-    private  int semNumber;
+    
 }

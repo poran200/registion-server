@@ -1,5 +1,6 @@
 package com.aj.grade.gradeentries.controller;
 
+import com.aj.grade.gradeentries.exception.ResourceAlreadyExistException;
 import com.aj.grade.gradeentries.exception.ResourseNotFoundException;
 import com.aj.grade.gradeentries.model.Section;
 import com.aj.grade.gradeentries.services.SectionService;
@@ -22,6 +23,10 @@ public class SectionController {
     public List<Section> findallSection() {
         return sectionService.findAll();
     }
+    @GetMapping(value = "/program/{programName}")
+    public ResponseEntity<List<Section>> findByProgramName(@PathVariable String programName){
+        return ResponseEntity.ok().body(sectionService.findAllByProgramName(programName));
+    }
 
     @GetMapping(value = "/coursecode/{courseCode}")
     public ResponseEntity<List<Section>> findBycoursecode(@PathVariable String courseCode) {
@@ -34,8 +39,9 @@ public class SectionController {
             return ResponseEntity.status(HttpStatus.CREATED).body(sectionService.creatSection(courseCode, section));
         } catch (ResourseNotFoundException e) {
             return ResponseEntity.notFound().build();
-        }  catch (Exception e){
-            System.out.println(e.getMessage());
+        } catch (ResourceAlreadyExistException e) {
+             return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }catch (Exception e){
             return ResponseEntity.badRequest().build();
         }
 

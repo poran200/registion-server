@@ -43,11 +43,11 @@ public class StudentRegController {
         }
     }
 
-    @DeleteMapping(value = "/{sectionId}")
-    public ResponseEntity<StudentInfo> dopSection(@PathVariable String sectionId, @RequestBody StudentInfo studentInfo) {
+    @DeleteMapping(value = "/{sectionId}/{studentId}")
+    public ResponseEntity<String> dopSection(@PathVariable String sectionId,  @PathVariable String studentId) {
         try {
-            studentRegService.dropScetion(sectionId, studentInfo);
-            return ResponseEntity.ok().build();
+
+            return ResponseEntity.ok().body( studentRegService.dropScetion(sectionId, studentId ));
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }

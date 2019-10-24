@@ -29,6 +29,7 @@ public class StudentInfo {
             inverseJoinColumns = @JoinColumn(name = "section_id")
     )
 
+    @JsonIgnoreProperties("studentInfos")
     private List<Section> sections;
 
     public StudentInfo(String id, String name) {
